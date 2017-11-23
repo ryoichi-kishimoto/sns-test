@@ -2,7 +2,7 @@
   <a :href="share.url" @click.prevent="openShareWindow(share.url)">
 
     <slot>
-      <i :class="`i-${serviceName}64`"></i>
+      <i :class="`i-${serviceName}64`">{{ serviceName }}</i>
     </slot>
 
   </a>

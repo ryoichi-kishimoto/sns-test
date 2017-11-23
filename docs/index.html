@@ -1,14 +1,27 @@
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 <body>
 
+<div id="app">
+  <h3>SNS Share サンプル</h3>
+
+  <test></test>
+
+  <social-sharing-list
+    title="タイトル"
+    description="本文"
+    twitter-hash-tags="vue,js,hoge"
+    twitter-user="hogehoge">
+
+  </social-sharing-list>
+</div>
+
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.esm.js"></script>
-<script src="./app.js"></script>
+<script src="./bundle.js"></script>
 </html>

@@ -36,6 +36,10 @@
   export default {
     name: 'social-sharing-list',
 
+    mounted() {
+      console.log('sharing mounted!!!!');
+    },
+
     props: {
       /**
        * シェアする URL
