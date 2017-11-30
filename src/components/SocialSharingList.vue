@@ -15,9 +15,7 @@
       <li class="o-action__shareSNS--item">
         <social-sharing
           service-name="twitter"
-          :title="title"
-          :twitter-hash-tags="twitterHashTags"
-          :twitter-user="twitterUser">
+          :twitter-hash-tags="twitterHashTags">
         </social-sharing>
       </li>
 

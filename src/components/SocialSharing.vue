@@ -176,10 +176,15 @@
     switch (this.serviceName) {
       case TWITTER:
         const metaTwitterUser = document.querySelector('[name="twitter:site"]')
+        const metaTitle = document.querySelector('[name="twitter:title"]')
 
-        if(!this.twitterUser) {
-          // meta から取得
-          this.twitterUser = metaTwitterUser ? metaTwitterUser.content.replace('@', ''): null
+        // twitter 設定用 meta から取得
+        if (!this.twitterUser) {
+          this.twitterUser = metaTwitterUser ? metaTwitterUser.content.replace('@', '') : null
+        }
+
+        if (!this.title) {
+          this.title = metaTitle ? metaTitle.content: null
         }
 
         this.url && shareUrlQueries.push(`url=${encodeURIComponent(this.url)}`)
