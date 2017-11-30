@@ -175,6 +175,13 @@
     // サービスごとの share url クエリパラメータを設定する
     switch (this.serviceName) {
       case TWITTER:
+        const metaTwitterUser = document.querySelector('[name="twitter:site"]')
+
+        if(!this.twitterUser) {
+          // meta から取得
+          this.twitterUser = metaTwitterUser ? metaTwitterUser.content.replace('@', ''): null
+        }
+
         this.url && shareUrlQueries.push(`url=${encodeURIComponent(this.url)}`)
         this.title && shareUrlQueries.push(`text=${encodeURIComponent(this.title)}`)
         this.twitterHashTags && shareUrlQueries.push(`hashtags=${encodeURIComponent(this.twitterHashTags)}`)
