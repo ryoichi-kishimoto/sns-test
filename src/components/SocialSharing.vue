@@ -56,38 +56,10 @@
       },
 
       /**
-       * シェアする URL
-       */
-      url: {
-        type: String,
-        default: window.location.href,
-      },
-
-      /**
-       * シェア内容のタイトル
-       */
-      title: {
-        type: String,
-      },
-
-      /**
-       * シェア内容の文章
-       */
-      description: {
-        type: String,
-      },
-
-      /**
        * Twitter用 ハッシュタグ
+       * ※ 現在未使用
        */
       twitterHashTags: {
-        type: String,
-      },
-
-      /**
-       * Twitter用 twitter ユーザ
-       */
-      twitterUser: {
         type: String,
       },
 
@@ -172,35 +144,33 @@
     const shareInfo = SERVICE_INFO[this.serviceName];
     const shareUrlQueries = [];
 
+    // 共通プロパティ
+    const url = getMeta('[property="og:url"]')
+    const title = getMeta('[property="og:title"]')
+    const description = getMeta('[property="og:description"]')
+
     // サービスごとの share url クエリパラメータを設定する
     switch (this.serviceName) {
       case TWITTER:
-        const metaTwitterUser = document.querySelector('[name="twitter:site"]')
-        const metaTitle = document.querySelector('[name="twitter:title"]')
+        const metaTwitterUser = getMeta('[name="twitter:site"]')
 
         // twitter 設定用 meta から取得
-        if (!this.twitterUser) {
-          this.twitterUser = metaTwitterUser ? metaTwitterUser.content.replace('@', '') : null
-        }
+        const twitterUser = metaTwitterUser ? metaTwitterUser.content.replace('@', '') : null
 
-        if (!this.title) {
-          this.title = metaTitle ? metaTitle.content: null
-        }
-
-        this.url && shareUrlQueries.push(`url=${encodeURIComponent(this.url)}`)
-        this.title && shareUrlQueries.push(`text=${encodeURIComponent(this.title)}`)
+        url && shareUrlQueries.push(`url=${encodeURIComponent(url)}`)
+        title && shareUrlQueries.push(`text=${encodeURIComponent(title)}`)
+        twitterUser && shareUrlQueries.push(`via=${twitterUser}`)
         this.twitterHashTags && shareUrlQueries.push(`hashtags=${encodeURIComponent(this.twitterHashTags)}`)
-        this.twitterUser && shareUrlQueries.push(`via=${this.twitterUser}`)
         break;
 
       case FACEBOOK:
-        this.url && shareUrlQueries.push(`u=${encodeURIComponent(this.url)}`)
-        this.title && shareUrlQueries.push(`t=${encodeURIComponent(this.title)}`)
+        url && shareUrlQueries.push(`u=${encodeURIComponent(url)}`)
+        title && shareUrlQueries.push(`t=${encodeURIComponent(title)}`)
         break;
 
       case LINE:
         shareUrlQueries.push(
-          `${this.description ? `${encodeURIComponent(this.description + ' ')}` : ''}${encodeURIComponent(this.url)}`)
+          `${description ? `${encodeURIComponent(description + ' ')}` : ''}${encodeURIComponent(url)}`)
         break;
     }
 
@@ -209,5 +179,11 @@
       .reduce((prev, current, index) => prev + `${current}${index < (shareUrlQueries.length - 1) ? '&' : ''}`, '?');
 
     return shareInfo;
+  }
+
+  function getMeta(target) {
+    const metaObject = document.querySelector(target)
+    return metaObject ? metaObject.content : null;
+
   }
 </script>
