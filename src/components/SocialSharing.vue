@@ -156,9 +156,10 @@
 
         // twitter 設定用 meta から取得
         const twitterUser = metaTwitterUser ? metaTwitterUser.content.replace('@', '') : null
+        const twitterTitle = getMeta('[name="twitter:title"]')
 
         url && shareUrlQueries.push(`url=${encodeURIComponent(url)}`)
-        title && shareUrlQueries.push(`text=${encodeURIComponent(title)}`)
+        twitterTitle && shareUrlQueries.push(`text=${encodeURIComponent(twitterTitle)}`)
         twitterUser && shareUrlQueries.push(`via=${twitterUser}`)
         this.twitterHashTags && shareUrlQueries.push(`hashtags=${encodeURIComponent(this.twitterHashTags)}`)
         break;
